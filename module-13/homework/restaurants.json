@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "12345678",
+    "dba": "example restaurant",
+    "boro": "manhattan",
+    "building": "123",
+    "street": "main st",
+    "zipcode": "10001",
+    "phone": "123-456-7890",
+    "inspections": [
+      {
+        "inspection_date": "2023-01-01",
+        "score": 12,
+        "violations": [
+          {
+            "violation_code": "10A",
+            "violation_description": "Improper food storage"
+          },
+          {
+            "violation_code": "15C",
+            "violation_description": "Unclean surfaces"
+          }
+        ]
+      },
+      {
+        "inspection_date": "2023-06-15",
+        "score": 8,
+        "violations": [
+          {
+            "violation_code": "08A",
+            "violation_description": "Inadequate hand washing facilities"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": "87654321",
+    "dba": "another restaurant",
+    "boro": "brooklyn",
+    "building": "456",
+    "street": "second ave",
+    "zipcode": "11215",
+    "phone": "987-654-3210",
+    "inspections": [
+      {
+        "inspection_date": "2023-03-10",
+        "score": 5,
+        "violations": [
+          {
+            "violation_code": "04L",
+            "violation_description": "Food not protected from contamination"
+          }
+        ]
+      }
+    ]
+  }
+]
