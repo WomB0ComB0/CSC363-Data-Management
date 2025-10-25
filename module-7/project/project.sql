@@ -1,11 +1,33 @@
--- Create the schema IF IT DOES NOT EXIST and end the batch
+-- Step 1: Create the Database if it doesn't exist.
+-- The USE [master] command ensures we are connected to the system database
+-- which has the permissions to create other databases.
+USE [master];
+GO
+
+-- Check if a database named 'MusicStreamDB' already exists. If not, create it.
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'MusicStreamDB')
+BEGIN
+    CREATE DATABASE [MusicStreamDB];
+END
+GO
+
+-- Step 2: Switch to the context of your newly created database.
+-- All subsequent commands will now run inside MusicStreamDB.
+USE [MusicStreamDB];
+GO
+
+-- Step 3: Create the schema IF IT DOES NOT EXIST.
+-- The GO command separates this into its own batch, ensuring it completes
+-- before the table creation statements are parsed.
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'project')
 BEGIN
     EXEC('CREATE SCHEMA project');
 END
 GO
 
--- Create PLAN table if it does not exist, in its own batch
+-- Step 4: Create all the tables within the 'project' schema.
+-- Each statement is separated by GO to run in its own batch for clarity and safety.
+
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'PLAN')
 BEGIN
     CREATE TABLE project.PLAN (
@@ -19,9 +41,9 @@ BEGIN
 END
 GO
 
--- Create USER table. Note that [USER] is in brackets because USER is a reserved keyword.
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'USER')
 BEGIN
+    -- Note: [USER] is in brackets because USER is a reserved keyword in SQL.
     CREATE TABLE project.[USER] (
         user_id INT PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
@@ -33,7 +55,6 @@ BEGIN
 END
 GO
 
--- Create ARTIST table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'ARTIST')
 BEGIN
     CREATE TABLE project.ARTIST (
@@ -44,7 +65,6 @@ BEGIN
 END
 GO
 
--- Create ALBUM table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'ALBUM')
 BEGIN
     CREATE TABLE project.ALBUM (
@@ -57,7 +77,6 @@ BEGIN
 END
 GO
 
--- Create TRACK table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'TRACK')
 BEGIN
     CREATE TABLE project.TRACK (
@@ -72,7 +91,6 @@ BEGIN
 END
 GO
 
--- Create PLAYLIST table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'PLAYLIST')
 BEGIN
     CREATE TABLE project.PLAYLIST (
@@ -86,7 +104,6 @@ BEGIN
 END
 GO
 
--- Create PLAYLIST_ITEM table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'PLAYLIST_ITEM')
 BEGIN
     CREATE TABLE project.PLAYLIST_ITEM (
@@ -103,7 +120,6 @@ BEGIN
 END
 GO
 
--- Create LISTEN table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'LISTEN')
 BEGIN
     CREATE TABLE project.LISTEN (
@@ -119,7 +135,6 @@ BEGIN
 END
 GO
 
--- Create FOLLOW table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'FOLLOW')
 BEGIN
     CREATE TABLE project.FOLLOW (
@@ -133,7 +148,6 @@ BEGIN
 END
 GO
 
--- Create FRIENDSHIP table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'FRIENDSHIP')
 BEGIN
     CREATE TABLE project.FRIENDSHIP (
@@ -149,7 +163,6 @@ BEGIN
 END
 GO
 
--- Create USER_PROFILE table
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id) WHERE s.name = 'project' AND t.name = 'USER_PROFILE')
 BEGIN
     CREATE TABLE project.USER_PROFILE (
