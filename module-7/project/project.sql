@@ -160,4 +160,4 @@ BEGIN
         CONSTRAINT fk_user_profile_has_profile_user FOREIGN KEY (user_id) REFERENCES project.[USER](user_id)
     );
 END
-GO```
+GO
